@@ -1,6 +1,6 @@
 //let setup controllers
 const { query } = require("express");
-const Product=require("../models/product");
+const Product=require("../models/productschema");
 const getAllProducts=async(req,res)=>{
    
     const {company,name,price,feature,sort,select}=req.query;
