@@ -1,8 +1,39 @@
-const User = require('../models/user');
+const {query}=require('express')
+const User = require('../models/userschema');
 
 // Get all users
 exports.getAllUsers = async (req, res) => {
-  try {
+    const {email,username,password,sort,select}=req.query;
+    const queryobject={};
+  
+    if(email){
+        queryobject.email={$regex:email,$options:"i"};
+        console.log(queryobject);
+    }
+    if(username){
+        queryobject.username={$regex:username,$options:"i"};
+        console.log(queryobject);
+    }
+    
+     let apiData=User.find(queryobject);
+     
+     if(sort){
+        //let sortfix=sort.replace(","," ");
+        let sortfix=sort.split(",").join(" ");
+        apiData=apiData.sort(sortfix);
+     }
+     
+     if(select){
+        let selectfix=select.split(",").join(" ");
+        apiData=apiData.select(selectfix);
+     }
+  
+    //  let page=Number(req.query.page) || 1;
+    //  let limit =Number(req.query.limit) || 6;
+    //  let skip=(page-1)*limit;
+    //  apiData=apiData.skip(skip).limit(limit);
+
+    try {
     const users = await User.find();
     res.json(users);
   } catch (error) {

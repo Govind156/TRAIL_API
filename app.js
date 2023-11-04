@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express=require("express");
 //instance get kar lete hai
-
+const cors=require('cors')
 const app=express();
 
 //create app so that express ki jitni b functionalities or method hai uska use karle
@@ -13,9 +13,14 @@ const PORT=process.env.PORT || 5000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(cors());
+
+
 //const Product_route=require("./routes/product");
 const courses_routes=require("./routes/courseRoute")
 const instructors_routes=require("./routes/instructorRoute")
+const users_routes=require("./routes/userRoute")
+const review_routes=require("./routes/reviewRoute")
 
 app.get("/",(req,res)=>{
     res.send("hi i m live");
@@ -27,6 +32,8 @@ app.get("/",(req,res)=>{
 //app.js ko batane b zaruri hai  ki new route use kar rahe hai
 app.use("/api/courses",courses_routes)
 app.use("/api/instructors",instructors_routes)
+app.use("/api/users",users_routes)
+app.use("/api/review",review_routes)
 
 const start=async()=>{
     try{
