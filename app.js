@@ -14,7 +14,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //const Product_route=require("./routes/product");
-const courses_route=require("./routes/courses");
+const courses_routes=require("./routes/courseRoute")
+const instructors_routes=require("./routes/instructorRoute")
 
 app.get("/",(req,res)=>{
     res.send("hi i m live");
@@ -24,7 +25,9 @@ app.get("/",(req,res)=>{
 
 //middleware or set to router
 //app.js ko batane b zaruri hai  ki new route use kar rahe hai
-app.use("/api/courses",courses_route);
+app.use("/api/courses",courses_routes)
+app.use("/api/instructors",instructors_routes)
+
 const start=async()=>{
     try{
         await connectdb(process.env.MONGO_URL);

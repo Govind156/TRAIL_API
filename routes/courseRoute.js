@@ -6,7 +6,7 @@ const express=require("express");
 const router=express.Router();
 //got instance
 
-const {getAllcourses,createCourse}=require("../controllers/courses");
+const {getAllcourses,createCourse}=require("../controllers/courseController");
 const upload=require("../multer/imgconfig");
 //define route
 router.route("/").get(getAllcourses);
